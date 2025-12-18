@@ -89,6 +89,23 @@
             opacity: 0.8;
         }
 
+        .box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 20px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            border: 5px solid #c1121f;
+        }
+
+                .box img {
+            max-width: auto; /* limit image width */
+            width: 100%;      /* make it responsive up to max-width */
+            height: auto;     /* preserve aspect ratio */
+            display: block;
+            border-radius: 8px;
+        }
+
         /* Animations */
         @keyframes fadeDown {
             from {
@@ -126,9 +143,12 @@
             opacity: 0.4;
         }
 
+        @keyframes glow {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
         @keyframes snow {
-            from { background-position: 0 0; }
-            to { background-position: 0 200px; }
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
         }
     </style>
 </head>
@@ -143,38 +163,56 @@
 </header>
 
 <div class="container">
+    <!-- Image Section -->
+    <div class="box" style="border-color:#0b6623">
+        <img src="image.jpg";>
+    </div>
+    <!-- Description Section -->
+    <div class="box" style="border-image: linear-gradient(to right, #0b6623, #c1121f) 1;">
+    <h3><center>Message</center></h3>
+    <p>Christmas is celebrated on December 25th to commemorate the birth of Jesus Christ. It is a time for family gatherings, gift-giving, and spreading joy and goodwill. Traditions include decorating Christmas trees, singing carols, and enjoying festive meals.</p>
+    <br>
+    <h3><center>Objective of Craft</center></h3>
+    <p style="white-space: pre-line;">Project Description: Eco-Friendly Christmas Tree with Interdisciplinary Learning
+
+As part of our Christmas celebration, our class created an eco-friendly Christmas tree using waste and reusable materials. The main aim of this project was to spread awareness about sustainability by practicing the principles of reduce, reuse, and recycle, while also integrating academic learning in a creative way.
+
+Different subjects were thoughtfully incorporated into various components of the Christmas tree to make the craft both educational and meaningful. Physics was represented through planets arranged around the tree, symbolizing our learning about the solar system and celestial bodies. Mathematics was integrated using origami decorations, highlighting the use of geometric shapes, symmetry, and precision involved in paper folding. History was depicted through the stable where Jesus was born, helping us understand the historical and cultural significance of Christmas. Biology was creatively shown using a snowman with labeled organs, representing basic knowledge of the human body and its functions.
+
+This interdisciplinary approach helped us connect classroom concepts with real-life creativity. The project encouraged teamwork, critical thinking, and artistic expression while reinforcing subject knowledge in an enjoyable and hands-on manner. Overall, this eco-friendly Christmas tree reflects the spirit of Christmas, the importance of environmental responsibility, and the joy of learning across different subjects.</p>
+    </div>
+    <!-- MU&SC -->
+    <div class="box" style="border-color: #0000FF;">
+    <h3>Materials Used:- </h3>
+    <p style="white-space: pre-line;">🎄Waste cardboard
+        🎄Colour papers
+        🎄Spray paint
+        🎄Adhesive Tape
+        🎄Ply Wood
+        🎄Thermocol
+        🎄Recycled papers
+    </p><br>
+    <h3>Corelattion with the subject</h3>
+    <p style="white-space: pre-line;">✨Physics - The Solar System and the working of the Rocket
+        ✨Mathematics - Origami decorations and Art Designs
+        ✨History - The Portrayl of the Shed
+        ✨Biology - Snowman with labelled organs
+        ✨Chemistry - Elements with Christmas Socks
+    </div>
+    <!-- Video Section -->
     <div class="video-section">
         <h2 style="text-align:center; margin-bottom:15px;">🎥 Christmas Special Video</h2>
-        
-        <!-- Replace video.mp4 with your own video file -->
         <video controls>
             <source src="video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
-
+</div>
     <div class="buttons">
-        <button onclick="playVideo()">▶ Play</button>
-        <button onclick="pauseVideo()">⏸ Pause</button>
         <button onclick="alert('🎄 Merry Christmas! 🎄')">🎁 Surprise</button>
     </div>
-</div>
-
 <footer>
     © 2025 | Christmas Webpage Project 🎅
 </footer>
-
-<script>
-    const video = document.querySelector('video');
-
-    function playVideo() {
-        video.play();
-    }
-
-    function pauseVideo() {
-        video.pause();
-    }
-</script>
-
 </body>
 </html>
