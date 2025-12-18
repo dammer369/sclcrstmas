@@ -53,6 +53,23 @@
             animation: zoomIn 1.5s ease;
         }
 
+        .video-section1 {
+  position: relative;
+  overflow: hidden;
+  background: #111;
+}
+
+        .bubbles::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 10%) repeat;
+  background-size: 40px 40px;
+  animation: floatBubbles 10s linear infinite;
+}
+
         video {
             width: 100%;
             border-radius: 10px;
@@ -118,6 +135,12 @@
             }
         }
 
+        @keyframes floatBubbles {
+  0% { top: 100%; }
+  100% { top: -100%; }
+}
+
+
         @keyframes zoomIn {
             from {
                 opacity: 0;
@@ -146,26 +169,93 @@
         @keyframes glow {
     0% { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
+        }
+
         @keyframes snow {
             0% { background-position: 0 0; }
             100% { background-position: 0 100%; }
         }
+
+        /* Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* two images per row */
+            gap: 12px;
+            align-items: stretch;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.04);
+        }
+        /* Responsive: single column on very small screens */
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Popup modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.6);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .18s ease;
+        }
+        .modal.open { opacity: 1; pointer-events: auto; }
+        .modal-content {
+            background: #fff;
+            color: #111;
+            padding: 22px;
+            border-radius: 12px;
+            min-width: 260px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+        }
+        .modal-content h2 { margin: 0 0 8px; font-family: 'Pacifico', cursive; color: #c1121f; }
+        .modal-content p { margin: 0; }
+        .close-btn {
+            background: #0b6623;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
     </style>
 </head>
 <body>
+    <audio id="bgMusic" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
 
 <div class="snow"></div>
 
 <header>
     <h1>🎄 Merry Christmas 🎄</h1>
     <p>Wishing you joy, peace & happiness<br>
-    <i>Project by the students of Class 11 Science A </i></p>
+    <i>Project by the Students of Class 11 Science A </i></p>
 </header>
 
 <div class="container">
     <!-- Image Section -->
     <div class="box" style="border-color:#0b6623">
-        <img src="./image.JPG";>
+        <img src="./image.JPG" alt="Project image">
+    </div>
+    <!-- Photo Gallery -->
     </div>
     <!-- Description Section -->
     <div class="box" style="border-image: linear-gradient(to right, #0b6623, #c1121f) 1;">
@@ -200,22 +290,97 @@ This interdisciplinary approach helped us connect classroom concepts with real-l
         ✨Chemistry - Elements with Christmas Socks
     </div>
     <!-- Video Section -->
-    <div class="video-section">
-        <h2 style="text-align:center; margin-bottom:15px;">🎥 Christmas Special Video</h2>
+    <div id="Video1" class="video-section" style="margin-bottom:30px;">
+        <h2 style="text-align:center; margin-bottom:15px;">A Slight Montage 🎥</h2>
         <video controls>
             <source src="video.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
+    <!-- Message from Students Video-->
+    <div id="Video2" class="video-section">
+        <h2 style="text-align:center; margin-bottom: 15px;">Message from a Student of Class XI Science A</h2>
+        <video controls>
+            <source src="message.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+       </video>
+    </div>
+        <div class="box" style="border-color:#ffb703;">
+        <h3><center>Snaps of Progress of Team</center></h3>
+        <div class="gallery-grid">
+            <img class="gallery-item" src="./photo1.jpeg" alt="Photo 1">
+            <img class="gallery-item" src="./photo2.jpeg" alt="Photo 2">
+            <img class="gallery-item" src="./photo3.jpeg" alt="Photo 3">
+            <img class="gallery-item" src="./photo4.jpeg" alt="Photo 4">
+            <img class="gallery-item" src="./photo5.jpeg" alt="Photo 5">
+        </div>
+
 </div>
     <div class="buttons">
-        <button onclick="alert('🎄 Merry Christmas! 🎄')">🎁 Surprise</button>
+        <button id="surprise-btn">🎁 Surprise</button>
     </div>
 <footer>
-    © 2025 | Christmas Webpage Project 🎅
+    © Christmas Webpage Project 🎅 | Class XI Science A | Session - 2025-26 
+    <center>Made by Debanga Manab Adhikary</center>
 </footer>
+<!-- Popup modal -->
+<div id="popupModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="popupTitle">
+  <div class="modal-content" role="document">
+    <h2 id="popupTitle">🎄 Merry Christmas! 🎄</h2>
+    <p>Wishing you joy and happiness this season.</p>
+    <button class="close-btn" id="closePopup">Close</button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const bgMusic = document.getElementById('bgMusic');
+  // initialize music if present
+  if (bgMusic) {
+    bgMusic.volume = 0.2;
+    bgMusic.play().catch(() => {
+      const startOnUser = () => bgMusic.play().catch(()=>{});
+      document.addEventListener('click', startOnUser, { once: true });
+      document.addEventListener('keydown', startOnUser, { once: true });
+    });
+  }
+
+  const videos = Array.from(document.querySelectorAll('video'));
+  if (videos.length) {
+    const anyVideoPlaying = () => videos.some(v => !v.paused && !v.ended && v.readyState > 2);
+    videos.forEach(v => {
+      v.addEventListener('play', () => { if (bgMusic && !bgMusic.paused) bgMusic.pause(); });
+      const tryResumeMusic = () => { if (bgMusic && !anyVideoPlaying()) bgMusic.play().catch(()=>{}); };
+      v.addEventListener('pause', tryResumeMusic);
+      v.addEventListener('ended', tryResumeMusic);
+    });
+  }
+
+  // Popup handlers (always initialize)
+  const surpriseBtn = document.getElementById('surprise-btn');
+  const popup = document.getElementById('popupModal');
+  const closeBtn = document.getElementById('closePopup');
+
+  const openPopup = () => {
+    if (!popup) return;
+    popup.classList.add('open');
+    popup.setAttribute('aria-hidden', 'false');
+    closeBtn && closeBtn.focus();
+  };
+
+  const closePopup = () => {
+    if (!popup) return;
+    popup.classList.remove('open');
+    popup.setAttribute('aria-hidden', 'true');
+    surpriseBtn && surpriseBtn.focus();
+  };
+
+  surpriseBtn && surpriseBtn.addEventListener('click', openPopup);
+  closeBtn && closeBtn.addEventListener('click', closePopup);
+  popup && popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+});
+</script>
 </body>
 </html>
-
 
 
