@@ -82,7 +82,7 @@
         }
 
         button {
-            background: #0b6623;
+            background: #c1121f;
             border: none;
             padding: 12px 25px;
             margin: 10px;
@@ -240,7 +240,10 @@
     <audio id="bgMusic" autoplay loop>
     <source src="music.mp3" type="audio/mpeg">
     </audio>
-
+<div class="buttons">
+        <button id="surprise-btn">🎁 Surprise</button>
+        <button id="music-toggle" aria-pressed="false">🔊 Music</button>
+    </div>
 
 <div class="snow"></div>
 
@@ -316,9 +319,7 @@ This interdisciplinary approach helped us connect classroom concepts with real-l
         </div>
 
 </div>
-    <div class="buttons">
-        <button id="surprise-btn">🎁 Surprise</button>
-    </div>
+    
 <footer>
     © Christmas Webpage Project 🎅 | Class XI Science A | Session - 2025-26 
     <center>Made by Debanga Manab Adhikary</center>
@@ -334,6 +335,8 @@ This interdisciplinary approach helped us connect classroom concepts with real-l
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const bgMusic = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('music-toggle');
+
   // initialize music if present
   if (bgMusic) {
     bgMusic.volume = 0.2;
@@ -341,6 +344,31 @@ document.addEventListener('DOMContentLoaded', () => {
       const startOnUser = () => bgMusic.play().catch(()=>{});
       document.addEventListener('click', startOnUser, { once: true });
       document.addEventListener('keydown', startOnUser, { once: true });
+    });
+  }
+
+  // Helper to update the music toggle button label/state
+  const updateMusicButton = () => {
+    if (!musicToggle || !bgMusic) return;
+    if (bgMusic.paused) {
+      musicToggle.textContent = '🔈 Music Off';
+      musicToggle.setAttribute('aria-pressed', 'false');
+    } else {
+      musicToggle.textContent = '🔊 Music On';
+      musicToggle.setAttribute('aria-pressed', 'true');
+    }
+  };
+
+  // Toggle handler
+  if (musicToggle) {
+    musicToggle.addEventListener('click', () => {
+      if (!bgMusic) return;
+      if (bgMusic.paused) {
+        bgMusic.play().catch(()=>{});
+      } else {
+        bgMusic.pause();
+      }
+      updateMusicButton();
     });
   }
 
@@ -378,6 +406,9 @@ document.addEventListener('DOMContentLoaded', () => {
   closeBtn && closeBtn.addEventListener('click', closePopup);
   popup && popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePopup(); });
+
+  // ensure music button shows correct initial state
+  updateMusicButton();
 });
 </script>
 </body>
